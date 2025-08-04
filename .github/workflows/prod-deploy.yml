@@ -1,7 +1,7 @@
 name: deployment.yml
 on: workflow_dispatch
 jobs:
-  deployment:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: clone code
@@ -15,5 +15,16 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: push image to docker hub
         run: docker push ${{ vars.DOCKER_USERNAME }}/edify-app:ubuntu-latest 
-
+   deploy:
+     needs: build
+     runs-on: 
+     steps:
+       - name: pull the docker image
+         run: docker pull ${{ vars.DOCKER_USERNAME }}/edify-app:latest
+       - name: Run container
+         run: docker container run -dt --name edify -p 80:80  ${{ vars.DOCKER_USERNAME }}/edify-app:latest
+       - name: list container
+         run: docker container ls -a 
+         
     
+
