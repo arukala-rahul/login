@@ -20,13 +20,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: pull the docker image
-        run: docker pull ${{ vars.DOCKER_USERNAME }}/edify-app:ubunutu-latest
+        run: docker pull arukalarahul8503/edify-app:ubuntu-latest
       - name: Run container
-        run: docker container run -dt --name edify -p 80:80  ${{ vars.DOCKER_USERNAME }}/edify-app:ubuntu-latest
+        run: docker container run -dt --name edify -p 80:80 arukalarahul8503/edify-app:ubuntu-latest
       - name: list container
         run: docker container ls -a 
          
     
+
 
 
 
